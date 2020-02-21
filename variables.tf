@@ -1,4 +1,4 @@
-variable "email_address" {
+variable "recipient" {
   type        = string
   description = "(required) The Email Address that should receive alerts"
 }
