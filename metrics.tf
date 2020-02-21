@@ -24,7 +24,7 @@ resource "aws_cloudwatch_metric_alarm" "root_login" {
   alarm_name          = "root_login"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
-  metric_name         = aws_cloudwatch_log_metric_filter.root_login[0].id
+  metric_name         = aws_cloudwatch_log_metric_filter.root_login[count.index].id
   namespace           = "GRACECISBenchmark"
   period              = var.root_login_period
   statistic           = "Sum"
@@ -34,28 +34,28 @@ resource "aws_cloudwatch_metric_alarm" "root_login" {
   alarm_actions       = [aws_cloudformation_stack.alerting_topic.outputs["Arn"]]
 }
 
-# Metric console_signin_failures
-resource "aws_cloudwatch_log_metric_filter" "console_signin_failures" {
+# Metric console_login_failures
+resource "aws_cloudwatch_log_metric_filter" "console_login_failures" {
   count          = var.alert_on_console_login_failures ? 1 : 0
-  name           = "console_signin_failures"
+  name           = "console_login_failures"
   pattern        = "{ ($.eventName = ConsoleLogin) && ($.errorMessage = \"Failed authentication\") }"
   log_group_name = var.cloudtrail_log_group_name
 
   metric_transformation {
-    name          = "console_signin_failures"
+    name          = "console_login_failures"
     namespace     = "GRACECISBenchmark"
     value         = "1"
     default_value = "0"
   }
 }
 
-# Alarm console_signin_failures
-resource "aws_cloudwatch_metric_alarm" "console_signin_failures" {
-  count               = var.alert_on_login_failures ? 1 : 0
-  alarm_name          = "console_signin_failures"
+# Alarm console_login_failures
+resource "aws_cloudwatch_metric_alarm" "console_login_failures" {
+  count               = var.alert_on_console_login_failures ? 1 : 0
+  alarm_name          = "console_login_failures"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
-  metric_name         = aws_cloudwatch_log_metric_filter.console_signin_failures[0].id
+  metric_name         = aws_cloudwatch_log_metric_filter.console_login_failures[count.index].id
   namespace           = "GRACECISBenchmark"
   period              = var.console_login_failures_period
   statistic           = "Sum"
@@ -86,7 +86,7 @@ resource "aws_cloudwatch_metric_alarm" "disable_or_delete_kms_key" {
   alarm_name          = "disable_or_delete_kms_key"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
-  metric_name         = aws_cloudwatch_log_metric_filter.disable_or_delete_kms_key[0].id
+  metric_name         = aws_cloudwatch_log_metric_filter.disable_or_delete_kms_key[count.index].id
   namespace           = "GRACECISBenchmark"
   period              = var.disable_or_delete_kms_key_period
   statistic           = "Sum"
@@ -117,7 +117,7 @@ resource "aws_cloudwatch_metric_alarm" "console_signin_without_mfa" {
   alarm_name          = "console_signin_without_mfa"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
-  metric_name         = aws_cloudwatch_log_metric_filter.console_signin_without_mfa[0].id
+  metric_name         = aws_cloudwatch_log_metric_filter.console_signin_without_mfa[count.index].id
   namespace           = "GRACECISBenchmark"
   period              = var.console_signin_without_mfa_period
   statistic           = "Sum"
