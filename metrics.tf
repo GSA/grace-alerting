@@ -96,32 +96,32 @@ resource "aws_cloudwatch_metric_alarm" "disable_or_delete_kms_key" {
   alarm_actions       = [aws_cloudformation_stack.alerting_topic.outputs["Arn"]]
 }
 
-# Metric console_signin_without_mfa
-resource "aws_cloudwatch_log_metric_filter" "console_signin_without_mfa" {
-  count          = var.alert_on_console_signin_without_mfa ? 1 : 0
-  name           = "console_signin_without_mfa"
+# Metric console_login_without_mfa
+resource "aws_cloudwatch_log_metric_filter" "console_login_without_mfa" {
+  count          = var.alert_on_console_login_without_mfa ? 1 : 0
+  name           = "console_login_without_mfa"
   pattern        = "{ ($.eventName = ConsoleLogin) && ($.additionalEventData.MFAUsed = No) }"
   log_group_name = var.cloudtrail_log_group_name
 
   metric_transformation {
-    name          = "console_signin_without_mfa"
+    name          = "console_login_without_mfa"
     namespace     = "GRACECISBenchmark"
     value         = "1"
     default_value = "0"
   }
 }
 
-# Alarm console_signin_without_mfa
-resource "aws_cloudwatch_metric_alarm" "console_signin_without_mfa" {
-  count               = var.alert_on_console_signin_without_mfa ? 1 : 0
-  alarm_name          = "console_signin_without_mfa"
+# Alarm console_login_without_mfa
+resource "aws_cloudwatch_metric_alarm" "console_login_without_mfa" {
+  count               = var.alert_on_console_login_without_mfa ? 1 : 0
+  alarm_name          = "console_login_without_mfa"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
-  metric_name         = aws_cloudwatch_log_metric_filter.console_signin_without_mfa[count.index].id
+  metric_name         = aws_cloudwatch_log_metric_filter.console_login_without_mfa[count.index].id
   namespace           = "GRACECISBenchmark"
-  period              = var.console_signin_without_mfa_period
+  period              = var.console_login_without_mfa_period
   statistic           = "Sum"
-  threshold           = var.console_signin_without_mfa_threshold
+  threshold           = var.console_login_without_mfa_threshold
   treat_missing_data  = "ignore"
   alarm_description   = "Monitoring for console logins without MFA will provide visibility into all console logins that do not utilize MFA."
   alarm_actions       = [aws_cloudformation_stack.alerting_topic.outputs["Arn"]]

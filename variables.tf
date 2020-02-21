@@ -62,19 +62,19 @@ variable "disable_or_delete_kms_key_threshold" {
   default     = 1
 }
 
-variable "alert_on_console_signin_without_mfa" {
+variable "alert_on_console_login_without_mfa" {
   type        = bool
   description = "(optional) Alert when a user signs into the AWS Console without using multi-factor authentication"
   default     = true
 }
 
-variable "console_signin_without_mfa_period" {
+variable "console_login_without_mfa_period" {
   type        = number
   description = "(optional) Duration in seconds to capture events before resetting the count"
   default     = 300
 }
 
-variable "console_signin_without_mfa_threshold" {
+variable "console_login_without_mfa_threshold" {
   type        = number
   description = "(optional) Number of captured events required before triggering the alarm"
   default     = 1
