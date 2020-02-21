@@ -7,7 +7,7 @@
         "DisplayName": "GRACE Alerting",
         "Subscription": [
           {
-            "Endpoint": "${email_address}",
+            "Endpoint": "${recipient}",
             "Protocol": "email"
           }
         ]
