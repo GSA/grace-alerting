@@ -1,4 +1,4 @@
-# <a name="top">GRACE Alerting</a>
+# <a name="top">GRACE Alerting</a> [![CircleCI](https://circleci.com/gh/GSA/grace-alerting.svg?style=shield)](https://circleci.com/gh/GSA/grace-alerting)
 
 GRACE Alerting provides basic CloudWatch Event Rules and Log Metric Filters that assist with the monitoring of an AWS environment. Results are dispatched to the provided email address using AWS Simple Notification Service, providing a minimalistic alert monitoring solution.
 
