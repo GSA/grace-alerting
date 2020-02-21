@@ -91,9 +91,9 @@ module "alerting" {
 | alert_on_disable_or_delete_kms_key | Alert when a KMS Key is disabled or scheduled for deletion | bool | true | no |
 | disable_or_delete_kms_key_period | Duration in seconds to capture events before resetting the count | number | 300 | no |
 | disable_or_delete_kms_key_threshold | Number of captured events required before triggering the alarm | number | 1 | no |
-| alert_on_console_signin_without_mfa | Alert when a user signs into the AWS Console without using multi-factor authentication | bool | true | no |
-| console_signin_without_mfa_period | Duration in seconds to capture events before resetting the count | number | 300 | no |
-| console_signin_without_mfa_threshold | Number of captured events required before triggering the alarm | number | 1 | no |
+| alert_on_console_login_without_mfa | Alert when a user signs into the AWS Console without using multi-factor authentication | bool | true | no |
+| console_login_without_mfa_period | Duration in seconds to capture events before resetting the count | number | 300 | no |
+| console_login_without_mfa_threshold | Number of captured events required before triggering the alarm | number | 1 | no |
 | alert_on_scp_changes | Alert on Attach, Detach, Update, Disable, and Enable Service Control Policies and Types | bool | true | no |
 | alert_on_s3_bucket_changes | Alert on S3 Bucket access and permission related changes | bool | true | no |
 | alert_on_config_compliance_changes | Alert on changes to AWS Config Rule compliance states | bool | true | no |
