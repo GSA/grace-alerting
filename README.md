@@ -41,7 +41,7 @@ GRACE Alerting provides basic CloudWatch Event Rules and Log Metric Filters that
 
 | Rule Name | Description |
 | --------- | ----------- |
-| scp_changes | Alert on Attach, Detach, Update, Disable, and Enable Service Control Policies and Types |
+| scp_changes | This event rule is only useful when your account is also the AWS Organization's Master Account.  Alert on Attach, Detach, Update, Disable, and Enable Service Control Policies and Types |
 | s3_bucket_changes | Alert on S3 Bucket access and permission related changes |
 | config_compliance_changes | Alert on changes to AWS Config Rule compliance states |
 | cloudtrail_configuration_changes | Alert on changes to CloudTrail Logging Configuration |
@@ -94,7 +94,7 @@ module "alerting" {
 | alert_on_console_login_without_mfa | Alert when a user signs into the AWS Console without using multi-factor authentication | bool | true | no |
 | console_login_without_mfa_period | Duration in seconds to capture events before resetting the count | number | 300 | no |
 | console_login_without_mfa_threshold | Number of captured events required before triggering the alarm | number | 1 | no |
-| alert_on_scp_changes | Alert on Attach, Detach, Update, Disable, and Enable Service Control Policies and Types | bool | true | no |
+| alert_on_scp_changes | Alert on Attach, Detach, Update, Disable, and Enable Service Control Policies and Types | bool | false | no |
 | alert_on_s3_bucket_changes | Alert on S3 Bucket access and permission related changes | bool | true | no |
 | alert_on_config_compliance_changes | Alert on changes to AWS Config Rule compliance states | bool | true | no |
 | alert_on_cloudtrail_configuration_changes | Alert on changes to CloudTrail Logging Configuration | bool | true | no |
