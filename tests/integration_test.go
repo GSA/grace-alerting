@@ -62,7 +62,7 @@ func (c *Case) Run() error {
 		return fmt.Errorf("failed to connect to %s -> %v", url, err)
 	}
 
-	cmd = exec.Command("go", "test", c.path)
+	cmd = exec.Command("/usr/local/go/bin/go", "test", c.path)
 
 	err = cmd.Run()
 	if err != nil {
