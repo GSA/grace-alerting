@@ -1,19 +1,23 @@
-test: init 
+GOBIN := $(GOPATH)/bin
+GOLANGCILINT := $(GOBIN)/golangci-lint
+
+default: test
+
+test: lint
 	apk add --no-cache python3-dev gcc libressl-dev musl-dev libffi-dev
 	pip3 install --upgrade pip setuptools flask "moto[server]"
 	go test -v integration_test.go
 
-apply: plan
-	terraform apply -auto-approve
+lint: dependencies
+	golangci-lint run ./...
 
-plan: validate
-	terraform plan
+dependencies: $(GOLANGCILINT) go.sum
 
-validate: init
-	terraform validate
-	terrascan --location . --tests all
+$(GOLANGCILINT):
+	go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
 
-init:
-	terraform init
+go.sum: go.mod
 	go mod tidy
-	[[ -d ../release ]] || mkdir ../release
+
+go.mod:
+	go mod init
