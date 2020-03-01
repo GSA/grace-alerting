@@ -25,6 +25,26 @@ jobs:
       - run:
           name: Check Terraform configurations with tflint
           command: find . -name ".terraform" -prune -o -type f -name "*.tf" -exec dirname {} \;|sort -u | while read m; do (cd "$m" && tflint && echo "√ $m") || exit 1 ; done
+  test_terraform:
+    environment:
+      AWS_DEFAULT_REGION: us-east-1
+      TF_LOG: DEBUG
+    docker:
+      - image: hashicorp/terraform:light
+    steps:
+      - checkout
+      - run:
+          name: Install make and curl
+          command: apk add --update make curl
+      - run:
+        name: Install Golang
+        command: |
+          curl -sSL "https://dl.google.com/go/go1.14.linux-amd64.tar.gz" | sudo tar -xz -C /usr/local/
+          echo "export PATH=$PATH:/usr/local/go/bin" >> $BASH_ENV
+      - run:
+          name: Test Terraform
+          command: |
+            make test
   tfsec:
     docker:
       - image: circleci/golang:latest
@@ -42,4 +62,5 @@ workflows:
   test_and_apply:
     jobs:
       - validate_terraform
+      - test_terraform
       - tfsec
