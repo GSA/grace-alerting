@@ -11,7 +11,6 @@ import (
 )
 
 func TestNow(t *testing.T) {
-
 	err := os.Setenv("AWS_ACCESS_KEY_ID", "foobar")
 	if err != nil {
 		t.Fatalf("failed to set AWS_ACCESS_KEY_ID: %v", err)
@@ -33,10 +32,10 @@ func TestNow(t *testing.T) {
 			port: 5000,
 		},
 	}
-	for _, c := range cases {
+	for name, c := range cases {
 		err = c.Run()
 		if err != nil {
-			fmt.Printf("failed to execute case: %s -> %v", c.path, err)
+			t.Fatalf("failed to execute case: %s -> %v", name, err)
 		}
 	}
 }
@@ -68,4 +67,6 @@ func (c *Case) Run() error {
 	if err != nil {
 		return fmt.Errorf("failed to execute case: %s -> %v", c.path, err)
 	}
+
+	return nil
 }
