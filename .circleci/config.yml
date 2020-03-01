@@ -37,10 +37,10 @@ jobs:
           name: Install make and curl
           command: apk add --update make curl
       - run:
-        name: Install Golang
-        command: |
-          curl -sSL "https://dl.google.com/go/go1.14.linux-amd64.tar.gz" | sudo tar -xz -C /usr/local/
-          echo "export PATH=$PATH:/usr/local/go/bin" >> $BASH_ENV
+          name: Install Golang
+          command: |
+            curl -sSL "https://dl.google.com/go/go1.14.linux-amd64.tar.gz" | sudo tar -xz -C /usr/local/
+            echo "export PATH=$PATH:/usr/local/go/bin" >> $BASH_ENV
       - run:
           name: Test Terraform
           command: |
