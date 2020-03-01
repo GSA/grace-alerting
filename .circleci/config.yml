@@ -26,9 +26,7 @@ jobs:
           name: Check Terraform configurations with tflint
           command: find . -name ".terraform" -prune -o -type f -name "*.tf" -exec dirname {} \;|sort -u | while read m; do (cd "$m" && tflint && echo "√ $m") || exit 1 ; done
   test_terraform:
-    shell: /bin/sh -leo pipefail
     environment:
-      BASH_ENV: /etc/profile
       AWS_DEFAULT_REGION: us-east-1
       TF_LOG: DEBUG
     docker:
@@ -46,6 +44,7 @@ jobs:
       - run:
           name: Test Terraform
           command: |
+            source $BASH_ENV
             make test
   tfsec:
     docker:
