@@ -16,6 +16,7 @@ func TestOne(t *testing.T) {
 		NoColor: true,
 	}
 	t.Logf("output: %s\n", terraform.InitAndApply(t, opts))
+
 	url := "http://localhost:5000"
 	sess, err := session.NewSession(&aws.Config{
 		Endpoint:   aws.String(url),
@@ -26,6 +27,6 @@ func TestOne(t *testing.T) {
 	}
 
 	svc := cwe.New(sess)
-	target := svc.Name("scp_changes").Assert(t, nil).Target()
+	target := svc.Rule.Name("scp_changes").Assert(t, nil).Target()
 	assert.Nil(t, target)
 }
