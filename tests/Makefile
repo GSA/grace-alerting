@@ -1,3 +1,4 @@
+GOBIN := $(GOPATH)/bin
 GOLANGCILINT := $(GOBIN)/golangci-lint
 
 default: test
@@ -8,15 +9,15 @@ test: lint
 	$(GOBIN) test -v integration_test.go
 
 lint: dependencies
-	golangci-lint run ./...
+	$(GOLANGCILINT) run ./...
 
 dependencies: $(GOLANGCILINT) go.sum
 
 $(GOLANGCILINT):
-	go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+	$(GOBIN) get -u github.com/golangci/golangci-lint/cmd/golangci-lint
 
 go.sum: go.mod
-	go mod tidy
+	$(GOBIN) mod tidy
 
 go.mod:
-	go mod init
+	$(GOBIN) mod init

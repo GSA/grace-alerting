@@ -30,21 +30,24 @@ jobs:
       AWS_DEFAULT_REGION: us-east-1
       TF_LOG: DEBUG
     docker:
-      - image: hashicorp/terraform:light
+      - image: circleci/golang:latest
     steps:
       - checkout
       - run:
-          name: Install make and curl
-          command: apk add --update make curl
+          name: Install make, curl, unzip
+          command: apk add --update make curl unzip
       - run:
-          name: Install Golang
+          name: Install Terraform
           command: |
-            curl -sSL "https://dl.google.com/go/go1.14.linux-amd64.tar.gz" | tar -xz -C /usr/local/
-            echo "export PATH=$PATH:/usr/local/go/bin" >> $BASH_ENV
+            echo "export TERRAFORM_LATEST_URL=$(curl --silent --location --head --output /dev/null --write-out '%{url_effective}' -- https://github.com/hashicorp/terraform/releases/latest)" >> $BASH_ENV
+            echo "export TERRAFORM_VERSION=${TERRAFORM_LATEST_URL##*/}" >> $BASH_ENV
+            source $BASH_ENV
+            curl -o terraform.zip -sSL "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
+            unzip terraform.zip -d /bin
+            chmod +x /bin/terraform
       - run:
           name: Test Terraform
           command: |
-            source $BASH_ENV
             make test
   tfsec:
     docker:
