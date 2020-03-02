@@ -19,7 +19,7 @@ resource "aws_cloudwatch_log_group" "integration_test" {
 }
 
 module "integration_test" {
-  source                    = "../../../"
+  source                    = path.module
   recipient                 = "a@b.c"
   cloudtrail_log_group_name = aws_cloudwatch_log_group.integration_test.name
 }
