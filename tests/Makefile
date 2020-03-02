@@ -1,8 +1,8 @@
 default: test
 
 test: lint
-	apk add --no-cache python3-dev gcc libressl-dev musl-dev libffi-dev
-	pip3 install --upgrade pip setuptools flask "moto[server]"
+	sudo apt-get install -y python3-dev gcc
+	sudo pip3 install --upgrade pip setuptools flask "moto[server]"
 	go test -v integration_test.go
 
 lint: dependencies
