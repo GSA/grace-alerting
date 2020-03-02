@@ -6,6 +6,7 @@ import (
 	"os/exec"
 	"strconv"
 	"testing"
+	"time"
 
 	"net/http"
 )
@@ -53,6 +54,9 @@ func (c *Case) Run() error {
 			fmt.Printf("failed to execute moto_server: %v", err)
 		}
 	}()
+
+	fmt.Printf("sleeping 20 seconds for moto_server to start")
+	time.Sleep(20 * time.Second)
 
 	url := fmt.Sprintf("http://localhost:%d", c.port)
 	// wait for a response from moto_server
