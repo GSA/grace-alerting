@@ -41,9 +41,9 @@ jobs:
       - run:
           name: Install Terraform
           command: |
-            echo "export TERRAFORM_LATEST_URL=$(curl --silent --location --head --output /dev/null --write-out '%{url_effective}' -- https://github.com/hashicorp/terraform/releases/latest)" >> $BASH_ENV
-            echo "export TERRAFORM_VERSION=${TERRAFORM_LATEST_URL##*/}" >> $BASH_ENV
-            source $BASH_ENV
+            TERRAFORM_LATEST_URL=$(curl --silent --location --head --output /dev/null --write-out '%{url_effective}' -- https://github.com/hashicorp/terraform/releases/latest)
+            TERRAFORM_VERSION=${TERRAFORM_LATEST_URL##*/}
+            TERRAFORM_VERSION=${TERRAFORM_VERSION:1:${#TERRAFORM_VERSION}}
             curl -o terraform.zip -sSL "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
             unzip terraform.zip -d /bin
             chmod +x /bin/terraform
