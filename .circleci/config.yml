@@ -36,6 +36,7 @@ jobs:
       - run:
           name: Install make, curl, unzip
           command: |
+            sudo -s
             apt-get update
             apt-get install -y make curl unzip
       - run:
