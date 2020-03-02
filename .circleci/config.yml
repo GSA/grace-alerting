@@ -50,8 +50,8 @@ jobs:
       - run:
           name: Install Moto Server
           command: |
-            sudo apt-get install -y python3-dev gcc
-            sudo pip install --upgrade pip setuptools flask "moto[server]"
+            sudo apt-get install -y python3-dev gcc pip3
+            sudo pip3 install --upgrade pip setuptools flask "moto[server]"
       - run:
           name: Test Terraform
           command: |
