@@ -48,6 +48,9 @@ type Case struct {
 
 func (c *Case) Run() error {
 	cmd := exec.Command("moto_server", "-p", strconv.Itoa(c.port))
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
 	go func() {
 		err := cmd.Run()
 		if err != nil {
@@ -55,7 +58,7 @@ func (c *Case) Run() error {
 		}
 	}()
 
-	fmt.Printf("sleeping 20 seconds for moto_server to start")
+	fmt.Printf("sleeping 20 seconds for moto_server to start\n")
 	time.Sleep(20 * time.Second)
 
 	url := fmt.Sprintf("http://localhost:%d", c.port)
@@ -66,6 +69,8 @@ func (c *Case) Run() error {
 	}
 
 	cmd = exec.Command("go", "test", c.path)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
 
 	err = cmd.Run()
 	if err != nil {
