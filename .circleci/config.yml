@@ -35,7 +35,9 @@ jobs:
       - checkout
       - run:
           name: Install make, curl, unzip
-          command: apk add --update make curl unzip
+          command: |
+            apt-get update
+            apt-get install -y make curl unzip
       - run:
           name: Install Terraform
           command: |
