@@ -36,9 +36,8 @@ jobs:
       - run:
           name: Install make, curl, unzip
           command: |
-            sudo -s
-            apt-get update
-            apt-get install -y make curl unzip
+            sudo apt-get update
+            sudo apt-get install -y make curl unzip
       - run:
           name: Install Terraform
           command: |
