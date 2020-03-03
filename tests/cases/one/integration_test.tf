@@ -8,6 +8,7 @@ provider "aws" {
   region = "us-east-1"
   endpoints {
     sns              = "http://localhost:5000"
+    cloudformation   = "http://localhost:5000"
     cloudwatchlogs   = "http://localhost:5000"
     cloudwatchevents = "http://localhost:5000"
     sts              = "http://localhost:5000"

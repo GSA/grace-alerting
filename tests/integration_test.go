@@ -58,8 +58,8 @@ func (c *Case) Run() error {
 		}
 	}()
 
-	fmt.Printf("sleeping 20 seconds for moto_server to start\n")
-	time.Sleep(20 * time.Second)
+	fmt.Printf("sleeping 5 seconds for moto_server to start\n")
+	time.Sleep(5 * time.Second)
 
 	url := fmt.Sprintf("http://localhost:%d", c.port)
 	// wait for a response from moto_server
@@ -76,6 +76,5 @@ func (c *Case) Run() error {
 	if err != nil {
 		return fmt.Errorf("failed to execute case: %s -> %v", c.path, err)
 	}
-
 	return nil
 }
