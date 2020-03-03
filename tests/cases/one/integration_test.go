@@ -19,7 +19,9 @@ func TestOne(t *testing.T) {
 	}
 
 	opts := &terraform.Options{
-		NoColor: true,
+		MaxRetries:         1,
+		TimeBetweenRetries: 1,
+		NoColor:            true,
 	}
 	t.Logf("output: %s\n", terraform.InitAndApply(t, opts))
 
