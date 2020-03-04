@@ -21,6 +21,7 @@ Control    | CSP/AWS | HOST/OS | App/DB | How is it implemented?
 ---------- | ------- | ------- | ------ | ----------------------
 [AC-2(g)](https://nvd.nist.gov/800-53/Rev4/control/AC-2) | ╳ | | | Employs the use of a CloudWatch Event Rule to continuously monitor and alert on changes to AWS IAM configurations.
 [AC-2(4)](https://nvd.nist.gov/800-53/Rev4/control/AC-2#enhancement-4) | ╳ | | | Employs the use of a CloudWatch Event Rule to continuously monitor and alert on changes to AWS IAM configurations.
+[SI-5(b)](https://nvd.nist.gov/800-53/Rev4/control/SI-5) | ╳ | | | Employs the use of a CloudWatch Event Rule to continuously monitor and alert on changes to various resource configurations.
 
 [top](#top)
 
