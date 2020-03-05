@@ -82,8 +82,8 @@ variable "console_login_without_mfa_threshold" {
 
 variable "alert_on_scp_changes" {
   type        = bool
-  description = "(optional) Alert on Attach, Detach, Update, Disable, and Enable Service Control Policies and Types"
-  default     = true
+  description = "(optional) This event rule is only useful when your account is also the AWS Organization's Master Account.  Alert on Attach, Detach, Update, Disable, and Enable Service Control Policies and Types"
+  default     = false
 }
 
 variable "alert_on_s3_bucket_changes" {
