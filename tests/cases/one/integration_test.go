@@ -1,7 +1,6 @@
 package testing
 
 import (
-	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -13,11 +12,6 @@ import (
 )
 
 func TestOne(t *testing.T) {
-	err := os.Setenv("TF_LOG", "TRACE")
-	if err != nil {
-		t.Fatalf("failed to set TF_LOG: %v", err)
-	}
-
 	opts := &terraform.Options{
 		MaxRetries:         1,
 		TimeBetweenRetries: 1,
