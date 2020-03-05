@@ -58,21 +58,24 @@ func (c *Case) Run() error {
 		}
 	}()
 
-	fmt.Printf("sleeping 5 seconds for moto_server to start\n")
-	time.Sleep(5 * time.Second)
+	maxRetries := 20
+	for i := 0; i < maxRetries; i++ {
+		time.Sleep(1 * time.Second)
 
-	url := fmt.Sprintf("http://localhost:%d", c.port)
-	// wait for a response from moto_server
-	_, err := http.Get(url)
-	if err != nil {
-		return fmt.Errorf("failed to connect to %s -> %v", url, err)
+		url := fmt.Sprintf("http://localhost:%d", c.port)
+		// wait for a response from moto_server
+		_, err := http.Get(url)
+		if err == nil {
+			break
+		}
+		fmt.Printf("failed to connect to %s -> %v, attempt %d/%d", url, err, i+1, maxRetries)
 	}
 
 	cmd = exec.Command("go", "test", c.path)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
-	err = cmd.Run()
+	err := cmd.Run()
 	if err != nil {
 		return fmt.Errorf("failed to execute case: %s -> %v", c.path, err)
 	}
