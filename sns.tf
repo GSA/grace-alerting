@@ -10,5 +10,5 @@ resource "aws_cloudformation_stack" "alerting_topic" {
 
 # read cloudformation stack
 data "aws_cloudformation_stack" "alerting_topic" {
-  name = "alerting-topic"
+  name = aws_cloudformation_stack.alerting_topic.name
 }
