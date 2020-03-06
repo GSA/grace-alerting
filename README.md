@@ -59,6 +59,7 @@ Control    | CSP/AWS | HOST/OS | App/DB | How is it implemented?
 - **sns.tf** contains the CloudFormation stack declaration for the `alerting-topic` SNS Topic
 - **metrics.tf** contains all of the declarations for CloudWatch metrics filters and alarms
 - **events.tf** contains all of the declarations for CloudWatch event rules and targets
+- **guardduty.tf** contains the AWS Guard Duty detector declaration
 - **variables.tf** contains all configurable variables
 - **outputs.tf** contains all Terraform output variables
 
@@ -84,6 +85,7 @@ module "alerting" {
 |------|-------------|:----:|:-----:|:-----:|
 | cloudtrail_log_group_name | The CloudTrail Log Group name | string |  | yes |
 | recipient | The Email Address that should receive alerts | string |  | yes |
+| guardduty_enabled | The boolean value indicating whether to enable guardduty for the account | bool | true | no |
 | alert_on_root_login | Alert when the root user logs in to the environment | bool | true | no |
 | root_login_period | Duration in seconds to capture events before resetting the count | number | 300 | no |
 | root_login_threshold | Number of captured events required before triggering the alarm | number | 1 | no |

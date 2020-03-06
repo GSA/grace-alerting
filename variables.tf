@@ -8,6 +8,12 @@ variable "cloudtrail_log_group_name" {
   description = "(required) The CloudTrail Log Group name"
 }
 
+variable "guardduty_enabled" {
+  type        = bool
+  description = "(optional) The boolean value indicating whether to enable guardduty for the account"
+  default     = true
+}
+
 variable "alert_on_root_login" {
   type        = bool
   description = "(optional) Alert when the root user logs in to the environment"
