@@ -37,7 +37,7 @@ EOF
 resource "aws_cloudwatch_event_target" "scp_changes" {
   count = var.alert_on_scp_changes ? 1 : 0
   rule  = aws_cloudwatch_event_rule.scp_changes[0].name
-  arn   = data.aws_cloudformation_stack.alerting_topic.outputs["ARN"]
+  arn   = aws_cloudformation_stack.alerting_topic.outputs["Arn"]
 
   input_transformer {
     input_paths = {
@@ -109,7 +109,7 @@ EOF
 resource "aws_cloudwatch_event_target" "s3_bucket_changes" {
   count = var.alert_on_s3_bucket_changes ? 1 : 0
   rule  = aws_cloudwatch_event_rule.s3_bucket_changes[count.index].name
-  arn   = data.aws_cloudformation_stack.alerting_topic.outputs["ARN"]
+  arn   = aws_cloudformation_stack.alerting_topic.outputs["Arn"]
 
   input_transformer {
     input_paths = {
@@ -165,7 +165,7 @@ EOF
 resource "aws_cloudwatch_event_target" "config_compliance_changes" {
   count = var.alert_on_config_compliance_changes ? 1 : 0
   rule  = aws_cloudwatch_event_rule.config_compliance_changes[count.index].name
-  arn   = data.aws_cloudformation_stack.alerting_topic.outputs["ARN"]
+  arn   = aws_cloudformation_stack.alerting_topic.outputs["Arn"]
 
   input_transformer {
     input_paths = {
@@ -234,7 +234,7 @@ EOF
 resource "aws_cloudwatch_event_target" "sns_cloudtrail_configuration_changes" {
   count = var.alert_on_cloudtrail_configuration_changes ? 1 : 0
   rule  = aws_cloudwatch_event_rule.cloudtrail_configuration_changes[count.index].name
-  arn   = data.aws_cloudformation_stack.alerting_topic.outputs["ARN"]
+  arn   = aws_cloudformation_stack.alerting_topic.outputs["Arn"]
 
   input_transformer {
     input_paths = {
@@ -304,7 +304,7 @@ EOF
 resource "aws_cloudwatch_event_target" "sns_config_configuration_changes" {
   count = var.alert_on_config_configuration_changes ? 1 : 0
   rule  = aws_cloudwatch_event_rule.config_configuration_changes[count.index].name
-  arn   = data.aws_cloudformation_stack.alerting_topic.outputs["ARN"]
+  arn   = aws_cloudformation_stack.alerting_topic.outputs["Arn"]
 
   input_transformer {
     input_paths = {
@@ -408,7 +408,7 @@ EOF
 resource "aws_cloudwatch_event_target" "sns_iam_configuration_changes" {
   count = var.alert_on_iam_configuration_changes ? 1 : 0
   rule  = aws_cloudwatch_event_rule.iam_configuration_changes[count.index].name
-  arn   = data.aws_cloudformation_stack.alerting_topic.outputs["ARN"]
+  arn   = aws_cloudformation_stack.alerting_topic.outputs["Arn"]
 
   input_transformer {
     input_paths = {
@@ -466,7 +466,7 @@ EOF
 resource "aws_cloudwatch_event_target" "guardduty_findings" {
   count = var.alert_on_guardduty_findings ? 1 : 0
   rule  = aws_cloudwatch_event_rule.guardduty_findings[count.index].name
-  arn   = data.aws_cloudformation_stack.alerting_topic.outputs["ARN"]
+  arn   = aws_cloudformation_stack.alerting_topic.outputs["Arn"]
 
   input_transformer {
     input_paths = {
