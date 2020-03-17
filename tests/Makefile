@@ -1,7 +1,7 @@
 default: test
 
 test: lint
-	go test -v integration_test.go
+	go test -v tests_test.go
 
 lint: dependencies
 	golangci-lint run ./...
