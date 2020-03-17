@@ -1,6 +1,8 @@
 package testing
 
 import (
+	"fmt"
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -8,18 +10,16 @@ import (
 	cwe "github.com/GSA/grace-tftest/aws/cloudwatchevents"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/gruntwork-io/terratest/modules/terraform"
 )
 
-func TestOne(t *testing.T) {
-	opts := &terraform.Options{
-		MaxRetries:         1,
-		TimeBetweenRetries: 1,
-		NoColor:            true,
+func TestIntegration(t *testing.T) {
+	port := os.Getenv("MOTO_PORT")
+	if len(port) == 0 {
+		t.Skipf("skipping testing, MOTO_PORT not set in environment variables")
 	}
-	t.Logf("output: %s\n", terraform.InitAndApply(t, opts))
 
-	url := "http://localhost:5000"
+	url := "http://localhost:" + port
+	fmt.Printf("connecting to: %s\n", url)
 	sess, err := session.NewSession(&aws.Config{
 		Endpoint:   aws.String(url),
 		DisableSSL: aws.Bool(true),
@@ -29,6 +29,10 @@ func TestOne(t *testing.T) {
 	}
 
 	svc := cwe.New(sess)
-	target := svc.Rule.Name("scp_changes").Assert(t, nil).Target()
+	target := svc.
+		Rule.
+		Name("scp_changes").
+		Assert(t, nil).
+		Target()
 	assert.Nil(t, target)
 }
