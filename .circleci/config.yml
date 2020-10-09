@@ -1,4 +1,4 @@
-version: 2.1
+version: 2
 jobs:
   validate_terraform:
     environment:
@@ -44,15 +44,14 @@ jobs:
       - checkout
       - run:
           name: Testing run
-          command: terraform init
+          command: |
+            if [ "$TESTING " != "true" ]; then return 0; fi
+            terraform init
 
 workflows:
-  version: 2.1
+  version: 2
   test_and_apply:
     jobs:
       - validate_terraform
       - tfsec
-  only_when_testing:
-    when: $TESTING
-    jobs:
-      - testing
+      - only_when_testing
