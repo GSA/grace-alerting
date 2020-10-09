@@ -47,6 +47,7 @@ jobs:
           command: |
             if [ "$TESTING " != "true" ]; then return 0; fi
             terraform init
+            tree .terraform/
 
 workflows:
   version: 2
