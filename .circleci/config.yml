@@ -37,9 +37,23 @@ jobs:
           name: Terraform static code analysis with tfsec
           command: tfsec
 
+  testing:
+    docker:
+      - image: hashicorp/terraform:light
+    steps:
+      - checkout
+      - run:
+          name: Testing run
+          command: terraform init
+
 workflows:
   version: 2
   test_and_apply:
     jobs:
       - validate_terraform
       - tfsec
+  only_when_testing:
+    when:
+      - equal: [ true, $TESTING ]
+    jobs:
+      - testing
