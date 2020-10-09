@@ -54,4 +54,4 @@ workflows:
     jobs:
       - validate_terraform
       - tfsec
-      - only_when_testing
+      - testing
