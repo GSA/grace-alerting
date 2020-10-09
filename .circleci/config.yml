@@ -54,6 +54,8 @@ workflows:
       - tfsec
   only_when_testing:
     when:
-      - equal: [ true, $TESTING ]
+      condition:
+        - equal: [ true, $TESTING ]
+        
     jobs:
       - testing
