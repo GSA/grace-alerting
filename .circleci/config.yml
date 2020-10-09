@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   validate_terraform:
     environment:
@@ -47,7 +47,7 @@ jobs:
           command: terraform init
 
 workflows:
-  version: 2
+  version: 2.1
   test_and_apply:
     jobs:
       - validate_terraform
@@ -56,6 +56,6 @@ workflows:
     when:
       condition:
         - equal: [ true, $TESTING ]
-        
+
     jobs:
       - testing
