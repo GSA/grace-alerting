@@ -45,7 +45,7 @@ jobs:
       - run:
           name: Testing run
           command: |
-            if [ "$TESTING " != "true" ]; then return 0; fi
+            if [ "$TESTING" != "true" ]; then return 0; fi
             terraform init
             tree .terraform/
 
