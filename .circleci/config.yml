@@ -53,9 +53,6 @@ workflows:
       - validate_terraform
       - tfsec
   only_when_testing:
-    when:
-      condition:
-        - equal: [ true, $TESTING ]
-
+    when: $TESTING
     jobs:
       - testing
