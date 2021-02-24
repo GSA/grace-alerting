@@ -169,7 +169,6 @@ resource "aws_cloudwatch_event_target" "config_compliance_changes" {
     input_paths = {
       "EventTime"           = "$.time"
       "EventType"           = "$.detail-type"
-      "AWSAccount"          = "$.detail.awsAccountId"
       "ConfigRuleName"      = "$.detail.newEvaluationResult.evaluationResultIdentifier.evaluationResultQualifier.configRuleName"
       "ResourceType"        = "$.detail.newEvaluationResult.evaluationResultIdentifier.evaluationResultQualifier.resourceType"
       "ResourceID"          = "$.detail.newEvaluationResult.evaluationResultIdentifier.evaluationResultQualifier.resourceId"
@@ -468,7 +467,6 @@ resource "aws_cloudwatch_event_target" "guardduty_findings" {
       "EventType"   = "$.detail-type"
       "EventSource" = "$.source"
       "AccountID"   = "$.account"
-      "AWSRegion"   = "$.region"
       "Severity"    = "$.detail.severity"
       "Title"       = "$.detail.title"
       "Description" = "$.detail.description"
