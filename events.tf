@@ -48,6 +48,7 @@ resource "aws_cloudwatch_event_target" "scp_changes" {
       "SourceIP"        = "$.detail.sourceIPAddress"
       "UserAgent"       = "$.detail.userAgent"
       "EventSource"     = "$.detail.eventSource"
+      "Region"          = "$.detail.awsRegion"
       "EventName"       = "$.detail.eventName"
       "EventParameters" = "$.detail.requestParameters[*]"
     }
@@ -61,7 +62,7 @@ resource "aws_cloudwatch_event_target" "scp_changes" {
   "Source IP": <SourceIP>,
   "User Agent": <UserAgent>,
   "Event Source": <EventSource>,
-  "AWS Region": <AWSRegion>,
+  "AWS Region": <Region>,
   "Event Name": <EventName>,
   "Event Parameters": <EventParameters>
 }
@@ -119,6 +120,7 @@ resource "aws_cloudwatch_event_target" "s3_bucket_changes" {
       "SourceIP"        = "$.detail.sourceIPAddress"
       "UserAgent"       = "$.detail.userAgent"
       "EventSource"     = "$.detail.eventSource"
+      "Region"          = "$.detail.awsRegion"
       "EventName"       = "$.detail.eventName"
       "EventParameters" = "$.detail.requestParameters[*]"
     }
@@ -132,7 +134,7 @@ resource "aws_cloudwatch_event_target" "s3_bucket_changes" {
   "Source IP": <SourceIP>,
   "User Agent": <UserAgent>,
   "Event Source": <EventSource>,
-  "AWS Region": <AWSRegion>,
+  "AWS Region": <Region>,
   "Event Name": <EventName>,
   "Event Parameters": <EventParameters>
 }
@@ -169,6 +171,8 @@ resource "aws_cloudwatch_event_target" "config_compliance_changes" {
     input_paths = {
       "EventTime"           = "$.time"
       "EventType"           = "$.detail-type"
+      "Region"              = "$.detail.awsRegion"
+      "Account"             = "$.detail.awsAccountId"
       "ConfigRuleName"      = "$.detail.newEvaluationResult.evaluationResultIdentifier.evaluationResultQualifier.configRuleName"
       "ResourceType"        = "$.detail.newEvaluationResult.evaluationResultIdentifier.evaluationResultQualifier.resourceType"
       "ResourceID"          = "$.detail.newEvaluationResult.evaluationResultIdentifier.evaluationResultQualifier.resourceId"
@@ -180,8 +184,8 @@ resource "aws_cloudwatch_event_target" "config_compliance_changes" {
 {
   "Event Time": <EventTime>,
   "Event Type":<EventType>,
-  "AWS Region": <AWSRegion>,
-  "AWS Account": <AWSAccount>,
+  "AWS Region": <Region>,
+  "AWS Account": <Account>,
   "Config Rule": <ConfigRuleName>,
   "Resource Type": <ResourceType>,
   "Resource ID": <ResourceID>,
@@ -240,6 +244,7 @@ resource "aws_cloudwatch_event_target" "sns_cloudtrail_configuration_changes" {
       "SourceIP"        = "$.detail.sourceIPAddress"
       "UserAgent"       = "$.detail.userAgent"
       "EventSource"     = "$.detail.eventSource"
+      "Region"          = "$.detail.awsRegion"
       "EventName"       = "$.detail.eventName"
       "EventParameters" = "$.detail.requestParameters[*]"
     }
@@ -252,7 +257,7 @@ resource "aws_cloudwatch_event_target" "sns_cloudtrail_configuration_changes" {
   "Source IP": <SourceIP>,
   "User Agent": <UserAgent>,
   "Event Source": <EventSource>,
-  "AWS Region": <AWSRegion>,
+  "AWS Region": <Region>,
   "Event Name": <EventName>,
   "Event Parameters": <EventParameters>
 }
@@ -310,6 +315,7 @@ resource "aws_cloudwatch_event_target" "sns_config_configuration_changes" {
       "SourceIP"        = "$.detail.sourceIPAddress"
       "UserAgent"       = "$.detail.userAgent"
       "EventSource"     = "$.detail.eventSource"
+      "Region"          = "$.detail.awsRegion"
       "EventName"       = "$.detail.eventName"
       "EventParameters" = "$.detail.requestParameters[*]"
     }
@@ -323,7 +329,7 @@ resource "aws_cloudwatch_event_target" "sns_config_configuration_changes" {
   "Source IP": <SourceIP>,
   "User Agent": <UserAgent>,
   "Event Source": <EventSource>,
-  "AWS Region": <AWSRegion>,
+  "AWS Region": <Region>,
   "Event Name": <EventName>,
   "Event Parameters": <EventParameters>
 }
@@ -413,6 +419,7 @@ resource "aws_cloudwatch_event_target" "sns_iam_configuration_changes" {
       "EventType"   = "$.detail.eventType"
       "EventTime"   = "$.detail.eventTime"
       "UserAgent"   = "$.detail.userAgent"
+      "Region"      = "$.detail.awsRegion"
       "EventName"   = "$.detail.eventName"
       "Elements"    = "$.detail.requestParameters[*]"
     }
@@ -426,7 +433,7 @@ resource "aws_cloudwatch_event_target" "sns_iam_configuration_changes" {
     "Event Source": <EventSource>,
     "Event Type": <EventType>,
     "Event Name": <EventName>,
-    "AWS Region": <AWSRegion>,
+    "AWS Region": <Region>,
     "Source IP": <SourceIP>,
     "User Agent": <UserAgent>,
     "Elements": <Elements>
@@ -467,6 +474,7 @@ resource "aws_cloudwatch_event_target" "guardduty_findings" {
       "EventType"   = "$.detail-type"
       "EventSource" = "$.source"
       "AccountID"   = "$.account"
+      "Region"      = "$.region"
       "Severity"    = "$.detail.severity"
       "Title"       = "$.detail.title"
       "Description" = "$.detail.description"
@@ -479,7 +487,7 @@ resource "aws_cloudwatch_event_target" "guardduty_findings" {
     "Event Type": <EventType>,
     "Event Source": <EventSource>,
     "Account ID": <AccountID>,
-    "AWS Region": <AWSRegion>,
+    "AWS Region": <Region>,
     "Event Severity": <Severity>,
     "Title": <Title>,
     "Description": <Description>,
